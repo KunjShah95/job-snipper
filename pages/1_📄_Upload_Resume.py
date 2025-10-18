@@ -56,15 +56,24 @@ with col1:
         st.success(f"✅ File uploaded successfully: `{uploaded_file.name}`")
         st.info(f"📋 File type detected: **{simple_type.upper()}**")
 
-        # Parse button
-        if st.button("🔍 Parse Resume", use_container_width=True, type="primary", key=f"parse_resume_{uuid.uuid4()}"):
+        # Parse button - use stable key based on file path
+        if st.button("🔍 Parse Resume", use_container_width=True, type="primary", key="parse_resume_btn"):
             with st.spinner("🤖 AI is parsing your resume... This may take a moment."):
                 try:
                     parsed = parse_resume(st.session_state.file_path, st.session_state.file_type)
                     st.session_state.parsed = parsed
                     st.success("✅ Resume parsed successfully!")
+                    
+                    # Auto-redirect to Analysis & Scoring page
+                    st.info("🔄 Redirecting to Analysis & Scoring...")
+                    import time
+                    time.sleep(1)
+                    st.switch_page("pages/2_📊_Analysis_Scoring.py")
+                    
                 except Exception as e:
                     st.error(f"❌ Error parsing resume: {e}")
+                    import traceback
+                    st.error(f"Details: {traceback.format_exc()}")
 
 with col2:
     st.markdown("## 📌 Tips")
@@ -113,7 +122,7 @@ if st.session_state.parsed:
 
     # Quick link to Project Suggestions
     st.markdown("---")
-    if st.button("🚀 Suggest Projects", use_container_width=True, type="primary", key=f"suggest_projects_{uuid.uuid4()}"):
+    if st.button("🚀 Suggest Projects", use_container_width=True, type="primary", key="suggest_projects_btn"):
         # Save session data before navigation
         auto_save_session()
         st.query_params["page"] = "5b_🚀_Project_Suggestions"# Feedback and autosave

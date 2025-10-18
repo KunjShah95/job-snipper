@@ -43,7 +43,7 @@ st.markdown("# 💼 Cover Letter Generator")
 # Check if resume is parsed
 if not st.session_state.parsed:
     st.warning("⚠️ Please upload and parse a resume first!")
-    if st.button("📄 Go to Upload Page", key=f"go_to_upload_cover_{uuid.uuid4()}"):
+    if st.button("📄 Go to Upload Page", key="go_to_upload_cover"):
         st.switch_page("pages/1_📄_Upload_Resume.py")
     st.stop()
 
@@ -127,7 +127,7 @@ with st.container():
             use_container_width=True,
             type="primary",
             disabled=not can_generate,
-            key=f"generate_cover_letter_{uuid.uuid4()}",
+            key="generate_cover_letter_btn",
         ):
             with st.spinner("🤖 AI is crafting your cover letter..."):
                 try:
@@ -197,12 +197,12 @@ with st.container():
             )
 
         with col3:
-            if st.button("📋 Copy Text", use_container_width=True, key=f"copy_text_{uuid.uuid4()}"):
+            if st.button("📋 Copy Text", use_container_width=True, key="copy_text_btn"):
                 st.code(edited_cl, language=None)
                 st.info("👆 Select and copy the text above")
 
         with col4:
-            if st.button("🔄 Regenerate", use_container_width=True, key=f"regenerate_cover_{uuid.uuid4()}"):
+            if st.button("🔄 Regenerate", use_container_width=True, key="regenerate_cover_btn"):
                 st.session_state.cover_letter = None
                 st.rerun()
 

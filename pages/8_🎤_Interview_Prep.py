@@ -162,7 +162,7 @@ with col2:
 
 # Generate Button
 if st.button(
-    "🚀 Generate Interview Questions", type="primary", use_container_width=True, key=f"generate_interview_questions_{uuid.uuid4()}"
+    "🚀 Generate Interview Questions", type="primary", use_container_width=True, key="generate_interview_questions_btn"
 ):
     if not job_role:
         st.error("❌ Please enter a job role")
@@ -287,7 +287,7 @@ if st.session_state.interview_questions:
         )
 
     with col3:
-        if st.button("🔄 Generate New Questions", key=f"generate_new_questions_{uuid.uuid4()}"):
+        if st.button("🔄 Generate New Questions", key="generate_new_questions_btn"):
             st.session_state.interview_questions = None
             st.rerun()
 

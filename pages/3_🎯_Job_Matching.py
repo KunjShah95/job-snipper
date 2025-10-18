@@ -54,7 +54,7 @@ st.markdown("# 🎯 Job Matching & Skill Gap Analysis")
 # Check if resume is parsed
 if not st.session_state.parsed:
     st.warning("⚠️ Please upload and parse a resume first!")
-    if st.button("📄 Go to Upload Page", key=f"go_to_upload_matching_{uuid.uuid4()}"):
+    if st.button("📄 Go to Upload Page", key="go_to_upload_matching"):
         st.switch_page("pages/1_📄_Upload_Resume.py")
     st.stop()
 
@@ -289,7 +289,7 @@ if st.session_state.match_info and jd_text.strip():
             ):
                 st.switch_page("pages/5_💼_Cover_Letter_Projects.py")
         with col2:
-            if st.button("✍️ Optimize Resume", use_container_width=True, key=f"optimize_resume_matching_{uuid.uuid4()}"):
+            if st.button("✍️ Optimize Resume", use_container_width=True, key="optimize_resume_matching"):
                 st.switch_page("pages/4_✍️_Resume_Rewrite.py")
 
     # Statistics

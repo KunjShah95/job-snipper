@@ -115,6 +115,33 @@ def parse_resume_to_json(raw_text):
         return {"skills": [], "education": [], "experience": [], "raw_text": raw_text}
 
 
+def calculate_compatibility_scores(parsed_resume):
+    """
+    Dynamically calculate compatibility scores for ATS systems based on parsed resume data.
+    """
+    systems = [
+        {"name": "Workday", "focus": "keywords", "strictness": "high"},
+        {"name": "Taleo (Oracle)", "focus": "formatting", "strictness": "high"},
+        {"name": "Greenhouse", "focus": "structure", "strictness": "medium"},
+        {"name": "Lever", "focus": "content", "strictness": "medium"},
+        {"name": "iCIMS", "focus": "sections", "strictness": "high"},
+    ]
+
+    scores = []
+    for system in systems:
+        # Example scoring logic based on skills and experience
+        score = min(100, len(parsed_resume.get("skills", [])) * 2 + len(parsed_resume.get("experience", [])) * 5)
+        status = "Pass" if score >= 70 else "Fail"
+        scores.append({
+            "system": system["name"],
+            "score": f"{score}%",
+            "status": status,
+            "focus": f"Focuses on {system['focus']} with {system['strictness']} strictness",
+        })
+
+    return scores
+
+
 class ResumeParser:
     """Compatibility wrapper providing a class-based API expected by pages.
 
@@ -127,4 +154,6 @@ class ResumeParser:
 
     def parse_resume(self, raw_text: str):
         """Parse resume text and return structured JSON-like dict."""
-        return parse_resume_to_json(raw_text)
+        parsed_resume = parse_resume_to_json(raw_text)
+        parsed_resume["compatibility_scores"] = calculate_compatibility_scores(parsed_resume)
+        return parsed_resume

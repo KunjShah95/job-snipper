@@ -208,7 +208,7 @@ with tab1:
 
     # Generate Estimate Button
     if st.button(
-        "💰 Calculate Salary Estimate", type="primary", use_container_width=True, key=f"calculate_salary_{uuid.uuid4()}"
+        "💰 Calculate Salary Estimate", type="primary", use_container_width=True, key="calculate_salary_btn"
     ):
         if not job_title:
             st.error("❌ Please enter a job title")

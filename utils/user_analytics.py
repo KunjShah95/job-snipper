@@ -315,7 +315,7 @@ class UserDataCollectionUI:
                 st.write(f"• {page}: {count} views")
         
         # Export option
-        if st.button("📥 Download My Data", key=f"download_my_data_{uuid.uuid4()}"):
+        if st.button("📥 Download My Data", key="download_my_data_btn"):
             data = analytics.export_analytics_data()
             st.download_button(
                 label="💾 Download JSON",
@@ -397,7 +397,7 @@ def init_analytics():
 
 def render_save_session_button():
     """Render the Save Session Data button in the sidebar (module-level)."""
-    if st.sidebar.button("💾 Save Session Data", help="Save your session data to cloud", key=f"save_session_data_btn_{uuid.uuid4()}"):
+    if st.sidebar.button("💾 Save Session Data", help="Save your session data to cloud", key="save_session_data_btn"):
         result = StreamlitCloudDataManager.save_user_data()
         if result.get('status') == 'success':
             st.sidebar.success("✅ Data saved!")

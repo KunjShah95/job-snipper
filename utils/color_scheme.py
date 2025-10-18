@@ -558,13 +558,58 @@ def get_unified_css():
     
     /* ==================== ALERTS ==================== */
     
-    .stAlert {{
-        background: rgba(255, 255, 255, 0.1) !important;
-        backdrop-filter: blur(10px) !important;
+    /* Success Alert - Green theme with dark text */
+    div[data-baseweb="notification"][kind="success"],
+    .stAlert[data-baseweb="notification"][kind="success"] {{
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+        border: 2px solid #28a745 !important;
         border-radius: 15px !important;
-        border: 2px solid rgba(255, 255, 255, 0.2) !important;
-        color: white !important;
+        color: #155724 !important;
         padding: 1rem 1.5rem !important;
+        font-weight: 600 !important;
+    }}
+    
+    /* Info Alert - Blue theme with dark text */
+    div[data-baseweb="notification"][kind="info"],
+    .stAlert[data-baseweb="notification"][kind="info"] {{
+        background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%) !important;
+        border: 2px solid #17a2b8 !important;
+        border-radius: 15px !important;
+        color: #0c5460 !important;
+        padding: 1rem 1.5rem !important;
+        font-weight: 600 !important;
+    }}
+    
+    /* Warning Alert - Orange theme with dark text */
+    div[data-baseweb="notification"][kind="warning"],
+    .stAlert[data-baseweb="notification"][kind="warning"] {{
+        background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%) !important;
+        border: 2px solid #ffc107 !important;
+        border-radius: 15px !important;
+        color: #856404 !important;
+        padding: 1rem 1.5rem !important;
+        font-weight: 600 !important;
+    }}
+    
+    /* Error Alert - Red theme with dark text */
+    div[data-baseweb="notification"][kind="error"],
+    .stAlert[data-baseweb="notification"][kind="error"] {{
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
+        border: 2px solid #dc3545 !important;
+        border-radius: 15px !important;
+        color: #721c24 !important;
+        padding: 1rem 1.5rem !important;
+        font-weight: 600 !important;
+    }}
+    
+    /* Generic Alert fallback */
+    .stAlert {{
+        background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 100%) !important;
+        border-radius: 15px !important;
+        border: 2px solid #4a5568 !important;
+        color: #1a202c !important;
+        padding: 1rem 1.5rem !important;
+        font-weight: 600 !important;
     }}
     
     /* ==================== SIDEBAR ==================== */
