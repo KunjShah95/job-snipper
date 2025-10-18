@@ -34,12 +34,13 @@ def detect_file_type(file_path: str) -> Tuple[str, str]:
     """
     mime, _ = mimetypes.guess_type(file_path)
     mime = mime or ""
-    if mime == "application/pdf" or file_path.lower().endswith(".pdf"):
-        return mime, "pdf"
-    if mime in ("application/vnd.openxmlformats-officedocument.wordprocessingml.document", ) or file_path.lower().endswith(".docx"):
-        return mime, "docx"
-    # fallback simple detection: extension
     ext = os.path.splitext(file_path)[1].lower()
-    if ext in [".doc", ".rtf", ".txt"]:
-        return mime or "text/plain", "docx"
+    if mime == "application/pdf" or ext == ".pdf":
+        return mime or "application/pdf", "pdf"
+    if mime in ("application/vnd.openxmlformats-officedocument.wordprocessingml.document",) or ext == ".docx":
+        return mime or "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"
+    if ext == ".txt":
+        return mime or "text/plain", "txt"
+    if ext in [".doc", ".rtf"]:
+        return mime or "application/msword", "doc"
     return mime or "application/octet-stream", "other"

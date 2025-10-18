@@ -78,6 +78,12 @@ if st.session_state.parsed:
 
     parsed = st.session_state.parsed
 
+    # Show manifest/diagnostics if present
+    manifest = parsed.get("_manifest")
+    if manifest:
+        with st.expander("Parsing manifest / diagnostics"):
+            st.json(manifest)
+
     col_a, col_b = st.columns(2)
     with col_a:
         st.markdown(f"**Name:** {parsed.get('name', 'Not detected')}")

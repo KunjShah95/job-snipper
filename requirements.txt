@@ -9,13 +9,19 @@ anthropic>=0.18.0
 
 # LangChain ecosystem
 langchain>=0.3.27
-langchain-exa
+langchain-extras
 
 # Document processing
-pdfplumber
-python-docx
+PyMuPDF>=1.22.0        # provides 'fitz' for PDF text & rendering
+pdfplumber>=0.7.0
+python-docx>=0.8.11
 docx2txt
 requests
+
+# OCR / image processing (recommended for scanned PDFs)
+# Note: pytesseract requires the Tesseract binary installed on the host (not just the Python package).
+Pillow>=10.0.0
+pytesseract>=0.3.10
 
 # Data science and visualization
 pandas>=2.0.0
@@ -31,9 +37,7 @@ reportlab>=3.6.0
 python-dotenv>=1.1.1
 deepdiff
 
-# Optional: OCR (may cause deployment issues if Tesseract not available)
-# pillow
-# pytesseract
+# Optional: cloud OCR (requires credentials)
 # google-cloud-vision
 
 # Optional: Vector DB (heavy package, comment out if not used)
