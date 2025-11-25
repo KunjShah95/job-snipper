@@ -11,7 +11,7 @@ from pathlib import Path
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from services.resume_parser import parse_resume_to_json
+from services.resume_parser import ResumeParser
 from services.resume_rewriter import ResumeRewriter
 from utils.job_matcher import JobMatcher
 from utils.ats_scanner import ATSScanner
@@ -49,6 +49,8 @@ with st.sidebar:
     )
 
     if uploaded_file:
+        parser = ResumeParser()
+
         with st.spinner("Parsing resume..."):
             if uploaded_file.type == "application/pdf":
                 from services.pdf_parser import parse_pdf
@@ -64,7 +66,7 @@ with st.sidebar:
             else:
                 st.session_state.resume_text = uploaded_file.read().decode("utf-8")
 
-            st.session_state.parsed_resume = parse_resume_to_json(
+            st.session_state.parsed_resume = parser.parse_resume(
                 st.session_state.resume_text
             )
             st.success("✅ Resume loaded successfully!")

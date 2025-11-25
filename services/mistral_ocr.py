@@ -10,7 +10,6 @@ and logs an informational message.
 import logging
 import os
 from io import BytesIO
-from typing import Optional
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -34,7 +33,7 @@ class MistralOCR:
         and logs a warning.
     """
 
-    def __init__(self, backend: Optional[str] = None, *args, **kwargs):
+    def __init__(self, backend: str | None = None, *args, **kwargs):
         self.backend = (backend or OCR_BACKEND).lower()
         log.info("Initializing OCR backend: %s", self.backend)
 

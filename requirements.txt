@@ -9,6 +9,7 @@ anthropic>=0.18.0
 
 # LangChain ecosystem
 langchain>=0.3.27
+langchain-extras
 
 # Document processing
 PyMuPDF>=1.22.0        # provides 'fitz' for PDF text & rendering
