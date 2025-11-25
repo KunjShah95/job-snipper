@@ -68,6 +68,7 @@ ResumeMasterAI is an enterprise-grade AI platform that revolutionizes resume opt
 ## 📂 Project Structure
 
 ```
+
 job-snipper/
 ├── .streamlit/              # Streamlit configuration
 │   ├── config.toml         # App configuration
@@ -136,7 +137,9 @@ job-snipper/
 ### Key Directories Explained
 
 #### `/pages` - Multi-Page Application
+
 Each file represents a different feature/page in the Streamlit app:
+
 - **Upload Resume**: Parse and extract resume information
 - **Analysis & Scoring**: ATS compatibility scoring
 - **Job Matching**: Match resumes to job descriptions
@@ -153,15 +156,19 @@ Each file represents a different feature/page in the Streamlit app:
 - **Project Suggestions**: Get project ideas to boost resume
 
 #### `/services` - Core Business Logic
+
 Contains the main service modules that handle document processing and AI operations.
 
 #### `/utils` - Utility Functions
+
 Helper functions for various tasks like scoring, styling, analytics, and integrations.
 
 #### `/scripts` - Testing & Automation
+
 Test scripts and automation utilities for development and CI/CD.
 
 #### `/agents` - AI Agent Configurations
+
 Configuration files for specialized AI agents (not directly user-facing).
 
 ### Configuration Files
@@ -262,12 +269,14 @@ You'll need at least one of the following API keys:
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/KunjShah95/job-snipper.git
    cd job-snipper
    ```
 
 2. **Create virtual environment**
+
    ```bash
    # Windows
    python -m venv .venv
@@ -279,12 +288,14 @@ You'll need at least one of the following API keys:
    ```
 
 3. **Install dependencies**
+
    ```bash
    pip install --upgrade pip
    pip install -r requirements.txt
    ```
 
 4. **Configure environment variables**
+
    ```bash
    # Copy the example environment file
    cp .env.example .env
@@ -295,18 +306,24 @@ You'll need at least one of the following API keys:
    ```
 
    Example `.env` configuration:
+
    ```env
-   # Groq API (Primary - Recommended)
+   # AI Provider APIs (At least one required)
    GROQ_API_KEY=gsk_your_groq_api_key_here
    GROQ_MODEL=llama-3.3-70b-versatile
-
-   # Google Gemini API (Alternative)
+   
    GOOGLE_API_KEY=your_google_api_key_here
    GEMINI_API_KEY=your_gemini_api_key_here
    GENAI_MODEL=gemini-1.5-flash
+   
+   # Job Search APIs (Optional - for real job data)
+   ADZUNA_APP_ID=your_adzuna_app_id_here
+   ADZUNA_APP_KEY=your_adzuna_app_key_here
+   RAPIDAPI_KEY=your_rapidapi_key_here
    ```
 
 5. **Configure Streamlit secrets** (if using Streamlit Cloud)
+
    ```bash
    mkdir -p .streamlit
    cp .streamlit/secrets.toml.example .streamlit/secrets.toml
@@ -314,11 +331,22 @@ You'll need at least one of the following API keys:
    ```
 
 6. **Launch application**
+
    ```bash
    streamlit run Home.py
    ```
 
    The application will be available at `http://localhost:8501`
+
+### 🌐 Alternate Gradio Demo
+
+If your environment prefers Gradio or you want a compact standalone UI, launch `app.py` instead:
+
+```bash
+python app.py
+```
+
+The Gradio demo runs on `http://localhost:7862` and exposes the same AI assistants plus the **Career Roadmap** tab for planning your next role.
 
 ### Quick Test
 
@@ -383,6 +411,7 @@ The application will be available at `http://localhost:8501`
 - **🔒 Secure**: API key management with environment isolation
 - **📊 Analytics Dashboard**: Comprehensive performance tracking
 - **🔄 Export Options**: Multiple format support (PDF, DOCX, TXT, Markdown)
+- **🧭 Career Roadmap Planner**: AI-generated plan that ties skills, certifications, networking, and interview prep to your next goal
 
 ---
 
@@ -608,10 +637,41 @@ docx_path = export_to_docx(resume_data, output_path="resume.docx")
 | `OPENAI_MODEL` | OpenAI model name | No | `gpt-3.5-turbo` |
 | `ANTHROPIC_API_KEY` | Anthropic API key | No | - |
 | `ANTHROPIC_MODEL` | Claude model name | No | `claude-3-haiku-20240307` |
+| `ADZUNA_APP_ID` | Adzuna API app ID | No | - |
+| `ADZUNA_APP_KEY` | Adzuna API app key | No | - |
+| `RAPIDAPI_KEY` | RapidAPI key for job search | No | - |
 | `DEBUG` | Enable debug mode | No | `False` |
 | `LOG_LEVEL` | Logging level | No | `INFO` |
 
 \* At least one AI provider API key is required
+
+### Job Search API Setup (Optional)
+
+For real-world job search data, configure one or more job search APIs:
+
+#### Adzuna API (Recommended)
+
+1. Sign up at [Adzuna API](https://developer.adzuna.com/)
+2. Get your App ID and App Key
+3. Add to `.env`:
+
+   ```env
+   ADZUNA_APP_ID=your_app_id_here
+   ADZUNA_APP_KEY=your_app_key_here
+   ```
+
+#### RapidAPI JSearch
+
+1. Sign up at [RapidAPI](https://rapidapi.com/)
+2. Subscribe to [JSearch API](https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch/)
+3. Get your API key
+4. Add to `.env`:
+
+   ```env
+   RAPIDAPI_KEY=your_rapidapi_key_here
+   ```
+
+**Note**: Without job search API keys, the system will use enhanced mock data that's still useful for testing and development.
 
 ---
 
@@ -622,6 +682,7 @@ docx_path = export_to_docx(resume_data, output_path="resume.docx")
 #### Issue: "No API key found"
 
 **Solution:**
+
 ```bash
 # Ensure .env file exists and contains valid API keys
 cp .env.example .env
@@ -631,6 +692,7 @@ cp .env.example .env
 #### Issue: "Module not found" errors
 
 **Solution:**
+
 ```bash
 # Reinstall dependencies
 pip install --upgrade pip
@@ -640,6 +702,7 @@ pip install -r requirements.txt --force-reinstall
 #### Issue: Streamlit app won't start
 
 **Solution:**
+
 ```bash
 # Check if port 8501 is already in use
 # Windows
@@ -655,6 +718,7 @@ streamlit run Home.py --server.port=8502
 #### Issue: OCR features not working
 
 **Solution:**
+
 ```bash
 # Install Tesseract OCR
 # Ubuntu/Debian
@@ -669,6 +733,7 @@ brew install tesseract
 #### Issue: Slow performance or timeouts
 
 **Solutions:**
+
 - Use Groq API (fastest option)
 - Reduce document size before processing
 - Check your internet connection
@@ -677,6 +742,7 @@ brew install tesseract
 #### Issue: Docker container fails to start
 
 **Solution:**
+
 ```bash
 # Check Docker logs
 docker-compose logs -f
@@ -690,6 +756,7 @@ docker-compose up -d
 #### Issue: API rate limits exceeded
 
 **Solutions:**
+
 - Switch to a different AI provider
 - Implement request throttling
 - Upgrade to paid API tier
@@ -735,6 +802,7 @@ streamlit run Home.py --logger.level=debug
    - Follow data protection regulations (GDPR, CCPA)
 
 3. **Dependency Security**
+
    ```bash
    # Check for security vulnerabilities
    pip install safety
@@ -791,9 +859,11 @@ We welcome contributions from the community! Please see our [Contributing Guide]
 ## 📅 Changelog
 
 ### Version 2.0.0 (Current)
+
 *Latest major release with comprehensive improvements*
 
 **Features Added:**
+
 - ✅ Multi-model AI support (Groq, Google Gemini, OpenAI, Anthropic)
 - ✅ Enhanced ATS scoring with 100-point system
 - ✅ A/B testing for resume versions
@@ -808,35 +878,42 @@ We welcome contributions from the community! Please see our [Contributing Guide]
 - ✅ Interview preparation module
 
 **Performance Improvements:**
+
 - ⚡ 84% faster load times
 - ⚡ 81% code reduction through optimization
 - ⚡ Improved PDF parsing accuracy
 - ⚡ Better error handling and fallback mechanisms
 
 **Bug Fixes:**
+
 - 🐛 Fixed PDF parsing issues with complex layouts
 - 🐛 Resolved CSS conflicts across pages
 - 🐛 Fixed API timeout handling
 - 🐛 Improved mobile responsiveness
 
 ### Version 1.5.0
+
 *Enhanced AI capabilities*
 
 **Features Added:**
+
 - ✅ Google Gemini AI integration
 - ✅ Advanced job matching algorithm
 - ✅ Resume rewrite with 12-feature toolkit
 - ✅ Project suggestions module
 
 **Improvements:**
+
 - 📊 Better visualization support
 - 🎨 Improved UI/UX design
 - 📱 Mobile-first responsive design
 
 ### Version 1.0.0
+
 *Initial release*
 
 **Core Features:**
+
 - ✅ Resume upload and parsing (PDF, DOCX)
 - ✅ ATS scanning and scoring
 - ✅ Basic job matching
@@ -849,6 +926,7 @@ We welcome contributions from the community! Please see our [Contributing Guide]
 ## 🗺️ Roadmap
 
 ### 🚀 Q4 2024 (In Progress)
+
 - [ ] Advanced AI model integration (GPT-4, Claude 3)
 - [ ] Multi-language support (Spanish, French, German)
 - [ ] Enhanced mobile experience
@@ -858,6 +936,7 @@ We welcome contributions from the community! Please see our [Contributing Guide]
 - [ ] Advanced resume templates
 
 ### 🎯 Q1 2025
+
 - [ ] Enterprise features (SSO, audit logs)
 - [ ] Advanced analytics dashboard
 - [ ] Custom branding options for organizations
@@ -868,6 +947,7 @@ We welcome contributions from the community! Please see our [Contributing Guide]
 - [ ] Integration with major job boards (Indeed, Monster, etc.)
 
 ### 🔮 Q2 2025
+
 - [ ] Mobile native apps (iOS, Android)
 - [ ] Browser extension (Chrome, Firefox)
 - [ ] Desktop application (Electron)
@@ -876,6 +956,7 @@ We welcome contributions from the community! Please see our [Contributing Guide]
 - [ ] Networking suggestions
 
 ### 🌟 Future Vision
+
 - [ ] AI-powered salary negotiation assistant
 - [ ] Career coaching chatbot
 - [ ] Skills gap analysis and learning paths
@@ -918,6 +999,7 @@ GOOGLE_API_KEY = "your_google_api_key"
 ```
 
 **Resources:**
+
 - Free tier: 1 GB RAM, shared CPU
 - Community tier: Custom domains, password protection
 - Team tier: More resources, priority support
@@ -930,6 +1012,7 @@ GOOGLE_API_KEY = "your_google_api_key"
 **Cons:** Requires Docker knowledge
 
 **Basic Deployment:**
+
 ```bash
 # Build the Docker image
 docker build -t resumemasterai:latest .
@@ -950,6 +1033,7 @@ docker stop resumemasterai
 ```
 
 **Docker Compose Deployment:**
+
 ```bash
 # Create .env file with your API keys
 cat > .env << EOF
@@ -972,6 +1056,7 @@ docker-compose up -d
 ```
 
 **Production Docker Compose:**
+
 ```yaml
 version: '3.8'
 
@@ -1120,6 +1205,7 @@ az container create \
 #### 6. Kubernetes Deployment
 
 **deployment.yaml:**
+
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -1169,6 +1255,7 @@ spec:
 ```
 
 **Deploy to Kubernetes:**
+
 ```bash
 # Create secret for API keys
 kubectl create secret generic api-keys \
@@ -1240,6 +1327,7 @@ heroku open
 #### Performance Optimization
 
 1. **Enable Caching**
+
    ```python
    @st.cache_data(ttl=3600)
    def expensive_function():
@@ -1252,6 +1340,7 @@ heroku open
    - Reduces server load
 
 3. **Implement Rate Limiting**
+
    ```python
    from functools import lru_cache
    import time
@@ -1269,6 +1358,7 @@ heroku open
 #### Security Hardening
 
 1. **HTTPS/TLS**
+
    ```nginx
    # Nginx SSL configuration
    server {
@@ -1296,6 +1386,7 @@ heroku open
    - Validate file uploads
 
 4. **Monitoring & Logging**
+
    ```python
    import logging
    
@@ -1349,6 +1440,7 @@ heroku open
 | **Kubernetes** | $50 - $1000+ | Large scale, enterprise |
 
 **Tips to Reduce Costs:**
+
 - Use spot instances for non-critical workloads
 - Implement auto-scaling to scale down during low traffic
 - Use serverless options for variable traffic
@@ -1465,6 +1557,7 @@ A: Our ATS scanner has 98%+ accuracy based on testing with real ATS systems used
 
 **Q: Is my resume data secure?**  
 A: Absolutely! We take privacy seriously:
+
 - All processing is done locally or in your controlled environment
 - We never store your resume data without explicit permission
 - API calls to LLM providers are encrypted
@@ -1510,6 +1603,7 @@ A: Yes! Templates are defined in `utils/ats_pdf_templates.py` and can be customi
 
 **Q: How do I improve my ATS score?**  
 A: The system provides specific recommendations. Common improvements include:
+
 - Using standard section headings
 - Adding relevant keywords from job descriptions
 - Quantifying achievements with numbers
@@ -1534,6 +1628,7 @@ A: Not yet, but the web interface is fully responsive and works on mobile browse
 
 **Q: Why is my resume not parsing correctly?**  
 A: Common issues:
+
 - Ensure file is not corrupted
 - Try converting to PDF if using DOCX
 - Remove images and complex formatting
@@ -1541,6 +1636,7 @@ A: Common issues:
 
 **Q: API calls are failing. What should I do?**  
 A: Check:
+
 - API keys are correctly set in `.env` file
 - You have available API credits/quota
 - Internet connection is stable
@@ -1548,6 +1644,7 @@ A: Check:
 
 **Q: The app is running slow. How can I speed it up?**  
 A: Try:
+
 - Switch to Groq API (fastest)
 - Clear Streamlit cache
 - Reduce document size
@@ -1558,6 +1655,7 @@ A: Try:
 
 **Q: How can I contribute to the project?**  
 A: We welcome contributions! See [Contributing](#-contributing) section for guidelines. You can:
+
 - Report bugs and issues
 - Submit feature requests
 - Contribute code via pull requests
@@ -1566,6 +1664,7 @@ A: We welcome contributions! See [Contributing](#-contributing) section for guid
 
 **Q: Where can I get help?**  
 A: Multiple support channels:
+
 - [GitHub Issues](https://github.com/KunjShah95/job-snipper/issues) - Bug reports and feature requests
 - [GitHub Discussions](https://github.com/KunjShah95/job-snipper/discussions) - General questions and community support
 - [Documentation](#-documentation) - Guides and API reference
@@ -1589,16 +1688,19 @@ A: Yes, you can sell modified or unmodified versions under the MIT license terms
 ## 🙏 Acknowledgments
 
 ### Core Technologies
+
 - **Streamlit** - Modern web app framework
 - **Google Gemini AI** - Advanced language models
 - **LangChain** - LLM orchestration framework
 - **Seaborn** - Statistical visualization library
 
 ### Contributors
+
 - **Kunj Shah** - Lead Developer & Architect
 - **Open Source Community** - Feature contributions and bug fixes
 
 ### Special Thanks
+
 - Google AI team for Gemini API access
 - Streamlit community for framework support
 - All beta testers and early adopters
@@ -1624,10 +1726,10 @@ A: Yes, you can sell modified or unmodified versions under the MIT license terms
 
 ### 🔗 Quick Links
 
-[🌐 Website](https://resumemasterai.streamlit.app/) • 
-[📖 Documentation](#-documentation) • 
-[🐛 Issues](https://github.com/KunjShah95/job-snipper/issues) • 
-[💬 Discussions](https://github.com/KunjShah95/job-snipper/discussions) • 
+[🌐 Website](https://resumemasterai.streamlit.app/) •
+[📖 Documentation](#-documentation) •
+[🐛 Issues](https://github.com/KunjShah95/job-snipper/issues) •
+[💬 Discussions](https://github.com/KunjShah95/job-snipper/discussions) •
 [📧 Contact](mailto:kunjshah95@example.com)
 
 ### 🤝 Connect With Us
@@ -1640,10 +1742,10 @@ A: Yes, you can sell modified or unmodified versions under the MIT license terms
 
 ### 📄 Legal
 
-[Privacy Policy](https://github.com/KunjShah95/job-snipper/blob/main/PRIVACY.md) • 
-[Terms of Service](https://github.com/KunjShah95/job-snipper/blob/main/TERMS.md) • 
-[Code of Conduct](CODE_OF_CONDUCT.md) • 
-[Security Policy](SECURITY.md) • 
+[Privacy Policy](https://github.com/KunjShah95/job-snipper/blob/main/PRIVACY.md) •
+[Terms of Service](https://github.com/KunjShah95/job-snipper/blob/main/TERMS.md) •
+[Code of Conduct](CODE_OF_CONDUCT.md) •
+[Security Policy](SECURITY.md) •
 [License (MIT)](LICENSE)
 
 ---
