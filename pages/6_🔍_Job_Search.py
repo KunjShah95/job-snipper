@@ -463,7 +463,7 @@ if st.session_state.job_results:
 
         with col3:
             if st.button("🏠 Back to Home", use_container_width=True, key="back_to_home_btn"):
-                st.switch_page("Home.py")
+                st.switch_page("app.py")
 
 else:
     # Tips section

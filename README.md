@@ -124,12 +124,11 @@ job-snipper/
 ├── CODE_OF_CONDUCT.md       # Community guidelines
 ├── Dockerfile               # Docker image definition
 ├── docker-compose.yml       # Docker Compose config
-├── Home.py                  # Main landing page
 ├── LICENSE                  # MIT License
 ├── README.md                # This file
 ├── requirements.txt         # Python dependencies
 ├── SECURITY.md              # Security policy
-├── app.py                   # Gradio interface (alternative UI)
+├── app.py                   # Streamlit landing page
 └── test_multimodel.py      # Multi-model testing
 ```
 
@@ -314,9 +313,9 @@ You'll need at least one of the following API keys:
    ```
 
 6. **Launch application**
-   ```bash
-   streamlit run Home.py
-   ```
+  ```bash
+  streamlit run app.py
+  ```
 
    The application will be available at `http://localhost:8501`
 
@@ -487,7 +486,7 @@ black . --line-length=88 --exclude=.venv
 mypy . --ignore-missing-imports
 
 # Run development server with auto-reload
-streamlit run Home.py --server.runOnSave=true
+streamlit run app.py --server.runOnSave=true
 
 # Build documentation (if using mkdocs)
 mkdocs build
@@ -649,7 +648,7 @@ netstat -ano | findstr :8501
 lsof -i :8501
 
 # Use a different port
-streamlit run Home.py --server.port=8502
+streamlit run app.py --server.port=8502
 ```
 
 #### Issue: OCR features not working
@@ -713,7 +712,7 @@ DEBUG=True
 LOG_LEVEL=DEBUG
 
 # Or run with debug flag
-streamlit run Home.py --logger.level=debug
+streamlit run app.py --logger.level=debug
 ```
 
 ---
